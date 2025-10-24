@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -82,6 +84,19 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+if not DEBUG:
+    DATABASES = {
+        'default' : dj_database_url.config(
+            #Replace this value with your local database's connection string.
+
+            default = 'postgresql://postgres:posegres@localhost:5432/bookproject',
+            conn_max_age=600
+        )
+    }
+
+
+ALLOWED_HOSTS = ['*']
 
 
 # Password validation
@@ -130,3 +145,4 @@ STATICFILES_DIRS = [
 ]
 
 GEMINI_API_KEY = config('GEMINI_API_KEY')
+WEATHER_API_KEY = config('WEATHER_API_KEY')
