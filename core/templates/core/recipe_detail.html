@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ recipe.title }} - しょくまる{% endblock %}
+
+{% block content %}
+    <h1>{{ recipe.title }}</h1>
+
+
+    <div id="recipe-details" >
+        <hr>
+        <h2>食材(一人前)</h2>
+        <pre>{{ recipe.ingredients }}</pre>
+        
+        <h2>作り方</h2>
+        <pre>{{ recipe.instructions }}</pre>
+
+        <h2>摂取できる栄養素</h2>
+        <pre>{{ recipe.nutrients }}</pre>
+        
+        <h2>ポイント</h2>
+        <pre>{{ recipe.cooking_point }}</pre>
+
+    </div>
+    <br>
+    <a href="{% url 'suggest_recipes' %}">前に戻る</a>
+    <script>
+        document.getElementById('show-details-btn').addEventListener('click', function() {
+            document.getElementById('recipe-details').style.display = 'block';
+            this.style.display = 'none'; // ボタン自体は消す
+        });
+    </script>
+{% endblock %}

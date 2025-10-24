@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}保存したレシピ一覧 - しょくまる{% endblock %}
+
+{% block content %}
+    <div class="header">
+        <h1>保存したレシピ一覧</h1>
+        <p>あなたが選んだ、とっておきのレシピたちです。</p>
+    </div>
+
+    <div class="recipe-grid">
+        {% for recipe in recipes %}
+            <a href="{% url 'recipe_detail' recipe.id %}" class="recipe-card-link">
+                <div class="recipe-card">
+                    <h2>{{ recipe.title }}</h2>
+                    <div class="recipe-summary">
+                        <pre>{{ recipe.main_ingredients }}</pre>
+                    </div>
+                </div>
+            </a>
+        {% empty %}
+            <div class="form-container" style="text-align: center;">
+                <p>まだ保存済みのレシピがありません。</p>
+                <p>AIに新しいレシピを提案してもらいましょう！</p>
+                <a href="{% url 'suggest_recipes' %}" class="submit-button" style="text-decoration: none; display: inline-block; width: auto; padding: 15px 30px;">レシピを提案してもらう</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

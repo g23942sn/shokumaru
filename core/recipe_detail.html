@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ recipe.title }} - しょくまる{% endblock %}
+
+{% block content %}
+    <h1>{{ recipe.title }}</h1>
+    
+    <img src="{{ recipe.image_url }}" alt="{{ recipe.title }}" style="width:100%; height:auto; border-radius:8px;">
+    
+    <p>{{ recipe.description }}</p>
+    
+    <h2>材料</h2>
+    <ul>
+        {% for item in recipe.ingredients %}
+            <li>{{ item.name }}：{{ item.quantity }}</li>
+        {% endfor %}
+    </ul>
+    
+    <h2>作り方</h2>
+    <ol>
+        {% for step in recipe.instructions %}
+            <li>{{ step }}</li>
+        {% endfor %}
+    </ol>
+
+    <a href="{% url 'suggest_recipe' %}">前に戻る</a>
+{% endblock %}

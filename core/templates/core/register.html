@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}食材・体調の登録 - しょくまる{% endblock %}
+
+{% block content %}
+    <h1>食材・体調の登録</h1>
+    <p>今日のあなたの状態を教えてください。AIが最適なレシピを提案します。</p>
+
+    <div class="form-container">
+        <form method="post">
+            {% csrf_token %}
+
+            <h2>食材の登録</h2>
+            
+            <div class="form-group">
+                <label for="{{ ingredient_form.name.id_for_label }}">食材名:</label>
+                {{ ingredient_form.name }}
+            </div>
+            <div class="form-group">
+                <label for="{{ ingredient_form.quantity.id_for_label }}">量:</label>
+                {{ ingredient_form.quantity }}
+            </div>
+            <div class="form-group">
+                <label for="{{ ingredient_form.expiry_date.id_for_label }}">期限:</label>
+                {{ ingredient_form.expiry_date }}
+            </div>
+
+            <h2 style="margin-top: 40px;">体調の登録</h2>
+            <div class="form-group">
+                <label for="{{ health_form.condition.id_for_label }}">今の体調や気分:</label>
+                {{ health_form.condition }}
+            </div>
+            
+            <button type="submit" class="submit-button">登録</button>
+        </form>
+    </div>
+{% endblock %}

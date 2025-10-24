@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block title %}AIレシピ提案 - しょくまる{% endblock %}
+
+{% block content %}
+    <div class="header">
+        <h1>レシピ提案</h1>
+    </div>
+
+    <div id="recipe-container" class="recipe-grid">
+        <div id="loading-indicator" class="form-container">
+            <p>考え中...</p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch("{% url 'get_ai_suggestions_api' %}")
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('recipe-container');
+                    container.innerHTML = ''; // Clear loading indicator
+
+                    if (data.recipes) {
+                        // ... .then(data => { ... }) ブロックの内側 ...
+                        // ... .then(data => { ... }) ブロックの内側 ...
+                        data.recipes.forEach((recipe, index) => {
+                            const recipeCard = document.createElement('div');
+                            recipeCard.className = 'recipe-card';
+    
+                            // ▼▼▼ 項目がなかった場合、デフォルトで空文字''を使うようにする ▼▼▼
+                            const title = recipe.title || 'タイトルなし';
+                            const catch_copy = recipe.catch_copy || ''; // 'undefined'の修正
+                            const main_ingredients = recipe.main_ingredients || '詳細不明';
+                            const nutrients = recipe.nutrients || '';
+                            const cooking_point = recipe.cooking_point || '';
+                            const ingredients = recipe.ingredients || '';
+                            const instructions = recipe.instructions || '';
+
+                            const detailsId = `details-${index}`;
+
+                            recipeCard.innerHTML = `
+                            <h2>${title}</h2>
+                            
+                            <p class="catch-copy">{{ recipe.catch_copy }}</p>
+        
+                            <div class="recipe-summary">
+                                <h3>在庫食材</h3>
+                                <pre>${main_ingredients}</pre>
+                            </div>
+        
+                            <div id="${detailsId}" class="recipe-full-details" style="display: none;">
+                                <hr>
+                                <h4>材料</h4>
+                                <pre>${ingredients}</pre>
+                                <h4>作り方</h4>
+                                <pre>${instructions}</pre>
+                                <h4>摂取できる栄養素</h4>
+                                <pre>${nutrients}</pre>
+                                <h4>ポイント</h4>
+                                <pre>${cooking_point}</pre>
+                            </div>
+
+                            <div class="card-actions">
+                            <form action="{% url 'save_recipe' %}" method="POST" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="title" value="${title}">
+                                
+                                <input type="hidden" name="main_ingredients" value="${main_ingredients}">
+                                <input type="hidden" name="nutrients" value="${nutrients}">
+                                <input type="hidden" name="cooking_point" value="${cooking_point}">
+                                <input type="hidden" name="ingredients" value="${ingredients}">
+                                <input type="hidden" name="instructions" value="${instructions}">
+                                <button type="submit" class="submit-button">レシピ詳細を見る</button>
+                            </form>
+                            </div>
+                            `;
+                        container.appendChild(recipeCard);
+                        });                    
+                        } else {
+                        // Error handling remains the same
+                        container.innerHTML = `
+                            <div class="form-container">
+                                <p>${data.error || 'レシピを生成できませんでした。'}</p>
+                                <a href="{% url 'register' %}" class="submit-button" style="text-decoration: none;">食材を登録する</a>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching recipes:', error);
+                    const container = document.getElementById('recipe-container');
+                    container.innerHTML = `<p>エラーが発生しました。時間を置いて再度お試しください。</p>`;
+                });
+        });
+    </script>
+{% endblock %}

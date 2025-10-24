@@ -1,0 +1,274 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: #f8f5f2;
+}
+
+.app-container {
+    display: flex;
+}
+
+/* サイドバー */
+.sidebar {
+    width: 240px;
+    background-color: #ffffff;
+    height: 100vh;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+}
+
+.sidebar-header {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.sidebar-nav a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.sidebar-nav a:hover {
+    background-color: #f0f0f0;
+}
+
+/* メインコンテンツ */
+.main-content {
+    flex-grow: 1;
+    padding: 30px;
+}
+
+/* フッターナビゲーション */
+.footer-nav {
+    display: none; /* スマホ表示以外では非表示 */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+}
+
+/* スマホ表示用の設定（メディアクエリ） */
+@media (max-width: 768px) {
+    .sidebar {
+        display: none; /* スマホではサイドバーを隠す */
+    }
+    .footer-nav {
+        display: flex; /* スマホではフッターを表示 */
+    }
+    .main-content {
+        padding-bottom: 80px; /* フッターに隠れないように余白を追加 */
+    }
+}
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* レスポンシブなグリッドレイアウト */
+    gap: 20px;
+}
+
+.recipe-card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.recipe-card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.recipe-card-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover; /* 画像の比率を保ったままトリミング */
+}
+
+.recipe-card-content {
+    padding: 15px;
+}
+
+.recipe-card-title {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.recipe-card-description {
+    font-size: 14px;
+    color: #666;
+}
+/* 登録フォームのデザイン */
+.form-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* フォームの入力欄（inputやtextarea）に共通のスタイルを当てる */
+.form-group input,
+.form-group textarea {
+    width: 98%; /* paddingを考慮して100%から少し減らす */
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: inherit; /* bodyのフォントを継承 */
+}
+
+/* 送信ボタン */
+.submit-button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    background-color: #604710;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+
+/* 食材リストのテーブルデザイン */
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    width: 100%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+/* 削除ボタンのデザイン */
+.delete-btn {
+    background-color: #f44336; /* 赤色 */
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+    font-size: 0.9em;
+    transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+    background-color: #da190b;
+}
+
+/* サイドバーとメニューボタン */
+#hamburger-btn {
+    position: fixed; /* 画面に固定 */
+    top: 15px;
+    left: 15px;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+    z-index: 1001; /* 他のコンテンツより手前に表示 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#hamburger-btn span {
+    display: block;
+    height: 4px;
+    width: 100%;
+    background-color: #333;
+    border-radius: 2px;
+}
+
+#sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: -250px; /* 初期状態では画面外に隠す */
+    background-color: #f8f9fa;
+    overflow-x: hidden;
+    transition: 0.3s; /* アニメーションの速度 */
+    padding-top: 60px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+#sidebar.show {
+    left: 0; /* このクラスが付くとサイドバーが表示される */
+}
+
+#sidebar .sidebar-header {
+    padding: 10px 20px;
+    background-color: #009879;
+    color: white;
+}
+
+#sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#sidebar ul li a {
+    padding: 15px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #333;
+    display: block;
+    transition: 0.2s;
+}
+
+#sidebar ul li a:hover {
+    background-color: #ddd;
+}

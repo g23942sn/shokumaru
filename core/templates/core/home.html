@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}ホーム - しょくまる{% endblock %}
+
+{% block content %}
+    <div class="header">
+        <h1>おすすめレシピ</h1>
+    </div>
+
+    <div id="recipe-container" class="recipe-grid">
+        {% if seasonal_recipes %}
+            {% for recipe in seasonal_recipes %}
+                <div class="recipe-card">
+                    <form action="{% url 'save_recipe' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="title" value="{{ recipe.title }}">
+                        
+                        <input type="hidden" name="main_ingredients" value="{{ recipe.main_ingredients }}">
+                        <input type="hidden" name="nutrients" value="{{ recipe.nutrients }}">
+                        <input type="hidden" name="cooking_point" value="{{ recipe.cooking_point }}">
+                        <input type="hidden" name="ingredients" value="{{ recipe.ingredients }}">
+                        <input type="hidden" name="instructions" value="{{ recipe.instructions }}">
+
+                        <h2>{{ recipe.title }}</h2>
+                        
+                        <div class="recipe-summary">
+                            <pre>{{ recipe.main_ingredients }}</pre>
+                        </div>
+                        <div class="card-actions">
+                            <button type="submit" class="submit-button">このレシピを保存＆詳細を見る</button>
+                        </div>
+                    </form>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="form-container">
+                <p>おすすめレシピを取得できませんでした。</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

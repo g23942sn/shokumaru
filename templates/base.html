@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}しょくまる{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <h2 class="sidebar-header">しょくまる</h2>
+            <nav class="sidebar-nav">
+                <a href="{% url 'register' %}">登録</a>
+                <a href="{% url 'ingredient_list' %}">食材管理</a>
+                <a href="{% url 'suggest_recipes' %}">レシピ</a>
+                <li><a href="{% url 'saved_recipes' %}">🔖 保存したレシピ</a></li>
+                <a href="#">アカウント情報</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            {% block content %}
+            {% endblock %}
+            </main>
+    </div>
+    
+
+    <footer class="footer-nav">
+        <a href="{% url 'home' %}">🏠<br><span>ホーム</span></a>
+        <a href="#">🔖<br><span>保存済</span></a>
+        <a href="{% url 'register' %}">📝<br><span>登録</span></a>
+        <a href="{% url 'suggest_recipes' %}">🤖<br><span>レシピ提案</span></a>
+        <a href="{% url 'saved_recipes' %}">🔖<br><span>保存済</span></a>
+        <a href="#">👤<br><span>ｱｶｳﾝﾄ</span></a>
+    </footer>
+</body>
+</html>
