@@ -6,7 +6,7 @@ databases:
 services:
  - type: web
    plan: free
-   name: shokumaruRecipe
+   name: shokumaru
    runtime: python
    buildCommand: "./build.sh"
    startCommand: "python -m gunicorn recipe.asgi:application -k uvicorn.workers.UvicornWorker"
