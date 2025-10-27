@@ -1,0 +1,19 @@
+databases:
+ - name: mysitedb
+   plan: free
+   databaseName: Recipes
+   user: yamada
+services:
+ - type: web
+   plan: free
+   name: shokumaruRecipe
+   runtime: python
+   buildCommand: "./build.sh"
+   startCommand: "python -m gunicorn recipe.asgi:application -k uvicorn.workers.UvicornWorker"
+envVars:
+     - key: DATABASE_URL
+       fromDatabase:
+         name: mysitedb
+         property: connectionString
+     - key: WEB_CONCURRENCY
+       value: 4
