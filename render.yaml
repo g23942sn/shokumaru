@@ -1,7 +1,7 @@
 databases:
  - name: mysitedb
    plan: free
-   databaseName: Recipes
+   databaseName: recipes
    user: yamada
 services:
  - type: web
