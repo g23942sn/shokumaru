@@ -22,7 +22,7 @@ from core import views as core_views
 router = routers.DefaultRouter()
 
 router.register(r'books', core_views.BookViewSet, basename='book')
-
+router.register(r'recipes', core_views.RecipeViewSet, basename='recipe')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

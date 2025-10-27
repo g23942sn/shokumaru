@@ -25,3 +25,9 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = '__all__'
+
+class RecipeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Recipe
+        # ↓ Recipeモデルの全フィールドをとりあえず公開する
+        fields = '__all__'
