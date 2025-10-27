@@ -17,10 +17,11 @@ from django.db.models import Q
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+
 # アプリ内のモデル、フォームなど
-from .models import Recipe, Ingredient, HealthCondition, SavedRecipe 
+from .models import Recipe, Ingredient, HealthCondition, SavedRecipe, Book
 from .forms import IngredientForm, HealthConditionForm
-from .serializers import RecipeSerializer, SavedRecipeSerializer
+from .serializers import RecipeSerializer, SavedRecipeSerializer, BookSerializer
 from rest_framework import viewsets
 from . import weather_service
 
@@ -307,3 +308,10 @@ def delete_recipe_api(request, recipe_id):
             'message': f'削除中にエラーが発生しました: {str(e)}'
         }, status=500)
 
+
+class BookViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    Bookデータを表示するためのAPI
+    """
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer

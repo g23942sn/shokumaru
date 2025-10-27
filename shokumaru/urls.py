@@ -16,9 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers # <--- DRFのルーターをインポート
+from core import views as core_views
+
+router = routers.DefaultRouter()
+
+router.register(r'books', core_views.BookViewSet, basename='book')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('core.urls')),
+    path('', include(router.urls)),
+    path('accounts/', include('django.contrib.auth.urls')),
     #path('api/recipe/save/', views.save_recipe_api, name='save_recipe_api'),
 ]
