@@ -23,6 +23,7 @@ router = routers.DefaultRouter()
 
 router.register(r'books', core_views.BookViewSet, basename='book')
 router.register(r'recipes', core_views.RecipeViewSet, basename='recipe')
+router.register(r'saverecipes', core_views.RecipeViewSet, basename='saverecipe')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

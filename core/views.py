@@ -319,3 +319,8 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
 class RecipeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
+
+
+class SavedRecipeViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = SavedRecipe.objects.all()
+    serializer_class = SavedRecipeSerializer
